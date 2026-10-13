@@ -1,0 +1,131 @@
+{
+  "events": [
+    {
+      "event-url": "/v0/events/ev.fixture01xxxxxxxxxxxxx",
+      "event-type": "payment-created",
+      "event-payload": {
+        "creditor": {
+          "bank-id-code": "gbdsc",
+          "account-number-code": "bban",
+          "creditor-type": "uk-domestic",
+          "uk-domestic-sort-code": "040004",
+          "account-holder": "Example Payee",
+          "account-number": "00000000",
+          "uk-domestic-account-number": "00000000",
+          "bank-id": "040004"
+        },
+        "payment-reference": "Sent from Example Org",
+        "payment-amount": {
+          "currency": "GBP",
+          "value": "1.00"
+        },
+        "created-via": "api",
+        "payment-direction": "outbound-payment",
+        "payment-type": "credit-transfer",
+        "created-at": "2026-10-13T19:51:56.952Z",
+        "debtor": {
+          "account-url": "/v0/bank/accounts/ba.fixture01xxxxxxxxxxxxx",
+          "bank-id-code": "gbdsc",
+          "account-number-code": "bban",
+          "uk-domestic-sort-code": "000001",
+          "account-holder": "Example Org",
+          "account-number": "00000000",
+          "uk-domestic-account-number": "00000000",
+          "bank-id": "000001"
+        },
+        "created-by-url": "/v0/users/ur.fixture01xxxxxxxxxxxxx",
+        "created-by-user": {
+          "user-memberships-url": "/v0/users/ur.fixture01xxxxxxxxxxxxx/memberships",
+          "user-username": "someone@example.com",
+          "api-keys-url": "/v0/users/ur.fixture01xxxxxxxxxxxxx/api-keys",
+          "user-email": "someone@example.com",
+          "surname": "Example",
+          "user-url": "/v0/users/ur.fixture01xxxxxxxxxxxxx",
+          "given-name": "Sam"
+        },
+        "payment-submissions-url": "/v0/payments/pm.fixture04xxxxxxxxxxxxx/submissions",
+        "payment-url": "/v0/payments/pm.fixture04xxxxxxxxxxxxx"
+      },
+      "created-at": "2026-10-13T19:51:57.053Z"
+    },
+    {
+      "event-url": "/v0/events/ev.fixture02xxxxxxxxxxxxx",
+      "event-type": "submission-updated",
+      "event-payload": {
+        "account-url": "/v0/bank/accounts/ba.fixture01xxxxxxxxxxxxx",
+        "submission-url": "/v0/submissions/ps.fixture02xxxxxxxxxxxxx",
+        "submission-scheme-information": {
+          "end-to-end-identification": "D75JZBEO3FNPBPJ7YGQN3PHRTY",
+          "payment-scheme": "fps"
+        },
+        "created-at": "2026-10-13T19:51:31.922Z",
+        "submission-status": "delivered",
+        "unique-scheme-identifier": "3EYGYVCCSFIXZNTUXPYXUO4YLI",
+        "payment-url": "/v0/payments/pm.fixture01xxxxxxxxxxxxx"
+      },
+      "created-at": "2026-10-13T19:51:32.205Z"
+    },
+    {
+      "event-url": "/v0/events/ev.fixture03xxxxxxxxxxxxx",
+      "event-type": "submission-updated",
+      "event-payload": {
+        "account-url": "/v0/bank/accounts/ba.fixture01xxxxxxxxxxxxx",
+        "submission-url": "/v0/submissions/ps.fixture02xxxxxxxxxxxxx",
+        "submission-scheme-information": {
+          "end-to-end-identification": "D75JZBEO3FNPBPJ7YGQN3PHRTY",
+          "payment-scheme": "fps"
+        },
+        "created-at": "2026-10-13T19:51:31.922Z",
+        "submission-status": "processing",
+        "unique-scheme-identifier": "3EYGYVCCSFIXZNTUXPYXUO4YLI",
+        "payment-url": "/v0/payments/pm.fixture01xxxxxxxxxxxxx"
+      },
+      "created-at": "2026-10-13T19:51:32.197Z"
+    },
+    {
+      "event-url": "/v0/events/ev.fixture04xxxxxxxxxxxxx",
+      "event-type": "transaction-created",
+      "event-payload": {
+        "effective-at": "2026-10-13T19:51:31.922Z",
+        "account-url": "/v0/bank/accounts/ba.fixture01xxxxxxxxxxxxx",
+        "balance-change": {
+          "currency": "GBP",
+          "value": "5.00"
+        },
+        "account-transaction-url": "/v0/bank/transactions/tr.fixture01xxxxxxxxxxxxx",
+        "reference": "fixture outbound",
+        "processed-at": "2026-10-13T19:51:32.095Z",
+        "account-balance": {
+          "currency": "GBP",
+          "value": "999982.66"
+        },
+        "transaction-origin-type": "payment",
+        "description": "Payment to Example Payee",
+        "balance-change-direction": "debit",
+        "post-datetime": "2026-10-13T19:51:32.095Z",
+        "payment-url": "/v0/payments/pm.fixture01xxxxxxxxxxxxx"
+      },
+      "created-at": "2026-10-13T19:51:32.172Z"
+    },
+    {
+      "event-url": "/v0/events/ev.fixture05xxxxxxxxxxxxx",
+      "event-type": "submission-created",
+      "event-payload": {
+        "account-url": "/v0/bank/accounts/ba.fixture01xxxxxxxxxxxxx",
+        "submission-url": "/v0/submissions/ps.fixture02xxxxxxxxxxxxx",
+        "submission-scheme-information": {
+          "end-to-end-identification": "D75JZBEO3FNPBPJ7YGQN3PHRTY",
+          "payment-scheme": "fps"
+        },
+        "created-at": "2026-10-13T19:51:31.922Z",
+        "submission-status": "processing",
+        "payment-url": "/v0/payments/pm.fixture01xxxxxxxxxxxxx"
+      },
+      "created-at": "2026-10-13T19:51:32.004Z"
+    }
+  ],
+  "links": {
+    "prev": null,
+    "next": "/v0/organizations/og.fixture01xxxxxxxxxxxxx/events?page[size]=5&page[after]=CURSOR"
+  }
+}

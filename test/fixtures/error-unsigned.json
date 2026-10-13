@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "title": "Unauthorized",
+      "status": "401",
+      "detail": "Missing or malformed signature input",
+      "code": "missing-or-malformed-signature-input"
+    }
+  ]
+}

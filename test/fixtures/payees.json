@@ -1,0 +1,19 @@
+{
+  "payees": [
+    {
+      "payee-status": "active",
+      "created-at": "2026-10-13T19:51:56.434Z",
+      "legal-person-url": "/v0/legal-persons/lp.fixture01xxxxxxxxxxxxx",
+      "account-holder": "Example Payee",
+      "account-number": "00000000",
+      "payee-url": "/v0/payees/pe.fixture01xxxxxxxxxxxxx",
+      "cop-request-url": "/v0/cop-request/cp.fixture01xxxxxxxxxxxxx",
+      "country-code": "GB",
+      "bank-id": "040004"
+    }
+  ],
+  "links": {
+    "prev": null,
+    "next": null
+  }
+}

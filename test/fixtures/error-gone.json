@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "title": "Gone",
+      "status": "410",
+      "detail": "Payment already submitted",
+      "links": {
+        "about": "https://docs.griffin.com/docs/errors/gone"
+      }
+    }
+  ]
+}

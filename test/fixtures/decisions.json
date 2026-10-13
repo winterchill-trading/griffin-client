@@ -1,0 +1,16 @@
+{
+  "links": {
+    "prev": null,
+    "next": null
+  },
+  "decisions": [
+    {
+      "legal-person-url": "/v0/legal-persons/lp.fixture02xxxxxxxxxxxxx",
+      "decision-outcome": "accepted",
+      "verification-url": "/v0/verifications/vn.fixture01xxxxxxxxxxxxx",
+      "decision-notes": "",
+      "created-at": "2026-10-13T19:50:34.162Z",
+      "decision-maker": "system"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "title": "Account not found",
+      "status": "400",
+      "detail": "Could not find an account with those details",
+      "code": "account-not-found"
+    }
+  ],
+  "cop-request-url": "/v0/cop-request/cp.fixture05xxxxxxxxxxxxx"
+}
