@@ -1,0 +1,10 @@
+(library
+ (name griffin_client_test)
+ (libraries core async griffin-client yojson uri cryptokit base64)
+ (inline_tests
+  (deps
+   (source_tree fixtures))
+  (flags
+   (:standard -source-tree-root .)))
+ (preprocess
+  (pps ppx_jane)))
