@@ -1,6 +1,8 @@
 (** Async client for the Griffin banking API (https://docs.griffin.com). *)
 
 module Api_error = Api_error
+module Claims = Claims
+module Client = Client
 module Config = Config
 module Ed25519 = Ed25519
 module Http_signature = Http_signature
