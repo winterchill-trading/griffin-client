@@ -26,7 +26,8 @@ let page (type a) name ~key (module M : Codec with type t = a) =
 
 let%expect_test "organization" =
   one "organization" (module Organization);
-  [%expect {|
+  [%expect
+    {|
     ((organization_url /v0/organizations/og.fixture01xxxxxxxxxxxxx)
      (display_name "Example Org") (organization_mode test-mode)
      (own_legal_person_url (/v0/legal-persons/lp.fixture01xxxxxxxxxxxxx))
@@ -56,7 +57,8 @@ let%expect_test "legal person, verification, decisions, workflows" =
   print_s [%sexp (d : Decision.t Page.t)];
   let w = page "workflows" ~key:"workflows" (module Workflow) in
   print_s [%message (List.length w.items : int) (w.total : int option)];
-  [%expect {|
+  [%expect
+    {|
     ((legal_person_url /v0/legal-persons/lp.fixture02xxxxxxxxxxxxx)
      (legal_person_type individual) (display_name "FIXTURE, Ada")
      (created_at 2026-10-13T19:50:29.343Z) (application_status (accepted))
@@ -110,7 +112,8 @@ let%expect_test "products and accounts" =
   one "bank-account" (module Bank_account);
   let a = page "bank-accounts-page" ~key:"accounts" (module Bank_account) in
   print_s [%message (List.length a.items : int) (Option.is_some a.next : bool)];
-  [%expect {|
+  [%expect
+    {|
     savings Easy access savings business
     savings Bare trust savings
     safeguarding Dedicated safeguarding
@@ -158,13 +161,15 @@ let%expect_test "transactions, payments, submissions, admissions" =
       t.account_balance.value);
   one "payment-outbound" (module Payment);
   let p = page "payments-inbound" ~key:"payments" (module Payment) in
-  List.iter p.items ~f:(fun p -> printf "%s %s\n" p.payment_direction p.payment_amount.value);
+  List.iter p.items ~f:(fun p ->
+    printf "%s %s\n" p.payment_direction p.payment_amount.value);
   one "submission" (module Submission);
   let s = page "submissions" ~key:"submissions" (module Submission) in
   print_s [%message (List.length s.items : int)];
   let a = page "admissions" ~key:"admissions" (module Admission) in
   print_s [%sexp (a : Admission.t Page.t)];
-  [%expect {|
+  [%expect
+    {|
     payment credit 12.34 balance=1000012.34
     deposit credit 1000000.00 balance=1000000.00
     ((payment_url /v0/payments/pm.fixture02xxxxxxxxxxxxx)
@@ -218,7 +223,8 @@ let%expect_test "payees and confirmation of payee" =
   List.iter [ "cop-match"; "cop-close-match"; "cop-no-match" ] ~f:(fun name ->
     let c = ok_exn (Page.decode Cop_request.t_of_yojson (load name)) in
     print_s [%sexp (c.cop_response : Cop_response.t)]);
-  [%expect {|
+  [%expect
+    {|
     ((payee_url /v0/payees/pe.fixture01xxxxxxxxxxxxx)
      (account_holder "Example Payee") (account_number 00000000) (bank_id 040004)
      (payee_status (active))
@@ -242,7 +248,8 @@ let%expect_test "events and webhooks" =
   print_s [%message (e.next : string option)];
   let w = page "webhooks" ~key:"organization-webhooks" (module Webhook) in
   print_s [%sexp (w.items : Webhook.t list)];
-  [%expect {|
+  [%expect
+    {|
     payment-created
     submission-updated
     submission-updated
@@ -252,8 +259,7 @@ let%expect_test "events and webhooks" =
      (/v0/organizations/og.fixture01xxxxxxxxxxxxx/events?page[size]=5&page[after]=CURSOR))
     (((webhook_url /v0/webhooks/wh.fixture01xxxxxxxxxxxxx)
       (webhook_destination_url https://example.com/webhook)
-      (webhook_state active)
-      (webhook_description ("Example webhook"))
+      (webhook_state active) (webhook_description ("Example webhook"))
       (created_at (2026-09-14T12:45:53.943Z))))
     |}]
 ;;
