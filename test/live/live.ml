@@ -250,7 +250,9 @@ let () =
   in
   if not enabled
   then
-    print_endline
+    (* Core's, not Async's: the scheduler never starts on this path, so Async's buffered
+       stdout would never be flushed. *)
+    Core.print_endline
       "griffin live test skipped (set GRIFFIN_API_KEY and GRIFFIN_LIVE_TESTS=1 to run)"
   else
     Command_unix.run
