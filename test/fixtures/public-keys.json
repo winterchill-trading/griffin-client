@@ -1,0 +1,26 @@
+{
+    "keys": [
+        {
+            "alg": "ES512",
+            "crv": "P-521",
+            "kid": "griffin-2026-09-28-1",
+            "kty": "EC",
+            "use": "sig",
+            "x": "AWQOG2paiMLBtCdo-8d1pwxsLaD6mKow7Zh8RDtMhSKymRT6tSDVYON5ubo9rVmJv2_3Zr3-W_Y1-vAhovATczSA",
+            "y": "TZNUzXaUSiRGRS8g8usd3T4jaop3rLQAiX4SqNw-oGsUd8M6j1OmSwDtpHAcEg_XOLmqvqLq6hIq_Dna4REEV9Y"
+        },
+        {
+            "alg": "ES512",
+            "crv": "P-521",
+            "kid": "griffin-2026-08-28-1",
+            "kty": "EC",
+            "use": "sig",
+            "x": "AOoyePUKGDv4tdg2Fwk_RqbygY5dlt4yhIq8ndlbB4CyIdO0K6xVGyKMng0cfdRKLfOgLxyGSFscDY5YmNcqto-8",
+            "y": "Yr6thaR7yIL--C95zeU5fDbHOpgyvCUCgtrf6U5XNc5brGLna65SXw8OrRMsajxXDNg2MFtKd-KStCfAPsc2Bfw"
+        }
+    ],
+    "links": {
+        "prev": null,
+        "next": null
+    }
+}
