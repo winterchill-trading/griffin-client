@@ -33,6 +33,11 @@ live calls against a sandbox organization).
 - `content-digest: sha-512=:<base64>:` (RFC 9530). For a bodyless request the header may
   be omitted, but the component is still signed (as the empty string); this client
   always sends the digest of the empty body instead.
+- A request signed with a key id the organization does not know is rejected on every
+  endpoint (`401 signature-verification-rejected`), even in a sandbox that does not
+  enforce signing; on the verify endpoint the same request answers
+  `401 unknown-signing-key-id`. Our signer and the reference Python library get the
+  same answers.
 - `POST /v0/security/message-signature/verify` (any method) checks a signature without
   side effects. Unsigned: `401 missing-or-malformed-signature-input`; unknown key:
   `401 unknown-signing-key-id`; missing components: `401 missing-required-components`
@@ -60,6 +65,9 @@ live calls against a sandbox organization).
   `links.prev` / `links.next` (relative URLs with opaque `page[after]`/`page[before]`
   cursors, or `null`). Some lists also return `meta.page.total`.
 - Follow `links.next` verbatim; any filters of the first request are carried in it.
+  The cursor links contain raw `[` `]`; `Uri` percent-encodes them on the wire
+  (`page%5Bsize%5D`), which Griffin accepts. Sign the encoded form.
+- The events list returned newest first.
 - `sort=created-at` / `sort=-created-at` (default descending); filters as
   `filter[field][eq]=...` or `filter[field][in][]=...`; `include=beneficiary` on some lists.
 
@@ -79,8 +87,11 @@ live calls against a sandbox organization).
 
 ## Sandbox behaviour
 
-- New sandbox accounts are funded automatically (docs say £1,000,000; the operational
-  account guide says £1,000).
+- New sandbox accounts are funded automatically: observed £1,000,000.00 as a
+  `deposit` transaction on a new operational account (the operational account guide
+  says £1,000; the sandbox page says £1,000,000, which is what happens).
+- A new account answers `account-status: opening` with an empty `bank-addresses` list;
+  it was `open`, with sort code `000001` and an account number, within about 4 s.
 - Payments are never sent to schemes and always succeed; onboarding runs no
   third-party checks and the organization makes the decision itself
   (`can-decide-on-verifications?` is `true`).
@@ -89,8 +100,22 @@ live calls against a sandbox organization).
   types such as `full-match`, `close-match-name`, `no-match-name`,
   `account-not-supported`, `account-switched`, `account-not-found`.
 - There is no endpoint to simulate an inbound payment from outside; an inbound payment
-  is produced by paying from one sandbox account to another (book transfer or FPS to
-  its sort code and account number).
+  is produced by paying from one sandbox account to another. Verified: an FPS payment
+  from account A to account B's sort code and account number shows on B as an
+  `inbound-payment`, a delivered admission and a `credit` transaction within a second.
+- Verification with the "Individual - Account Owners" workflow reached
+  `checks-complete` in under 5 s, and the sandbox recorded a `system` decision
+  `accepted` on its own; `POST decisions` was not needed.
+- A real (non-simulated) CoP request in the sandbox answered `match` for made-up
+  details. The `account-not-found` simulation answers 400 with an `errors` array and
+  still includes a `cop-request-url`.
+- Paying a payee (`creditor-type: payee`) stores the creditor as `uk-domestic` with the
+  payee's details. Without `payment-reference` the reference becomes
+  `Sent from <organization name>`.
+- Payment and submission responses embed `created-by-user` (the API key owner's name and
+  email). Scrub them before logging or storing fixtures.
+- `POST` creates answer 201 with a `Location` header and the full resource in the body.
+- Outbound FPS submissions in the sandbox were `delivered` within 3 s.
 
 ## Errors
 
