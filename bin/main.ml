@@ -337,22 +337,27 @@ let keys =
          ~sexp:[%sexp (kids : string list)])
 ;;
 
+(* Does not connect first: with an unregistered key every other call is rejected. *)
 let check_signature =
-  cmd
+  Command.async_or_error
     ~summary:"send a signed request to Griffin's signature debug endpoint"
-    (Command.Param.return ())
-    (fun c _out () ->
+    (let%map_open.Command _out, verbose, live = common in
+     fun () ->
        let open Deferred.Or_error.Let_syntax in
+       let%bind config = Deferred.return (Config.of_env ~live ()) in
        let%bind () =
-         if Option.is_some (Transport.config (Client.transport c)).signing
+         if Option.is_some config.signing
          then return ()
          else
            Deferred.Or_error.error_string
              "set GRIFFIN_SIGNING_KEY and GRIFFIN_SIGNING_KEY_ID"
        in
+       let on_event (e : Transport.Event.t) =
+         if verbose then Print.eprint_s [%sexp (e : Transport.Event.t)]
+       in
        let%map r, _ =
          Transport.call
-           (Client.transport c)
+           (Transport.create ~on_event config)
            `POST
            "/v0/security/message-signature/verify"
            ~body:(`Assoc [ "hello", `String "griffin" ])
