@@ -1,5 +1,6 @@
-(** One page of a list response: [{"<key>": [...], "links": {"prev", "next"},
-    "meta": {"page": {"total"}}}]. [next] and [prev] are links to follow verbatim. *)
+(** One page of a list response:
+    [{"<key>": [...], "links": {"prev", "next"}, "meta": {"page": {"total"}}}]. [next] and
+    [prev] are links to follow verbatim. *)
 
 open! Core
 

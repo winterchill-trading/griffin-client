@@ -22,8 +22,12 @@ let decode f json =
       | exn -> Exn.to_string exn
     in
     Or_error.error_s
-      [%message "unexpected JSON" what ~near:(Yojson.Safe.to_string bad |> fun s -> String.prefix s 200 : string)]
-  | exception Yojson.Safe.Util.Type_error (msg, _) -> Or_error.error_s [%message "unexpected JSON" msg]
+      [%message
+        "unexpected JSON"
+          what
+          ~near:(Yojson.Safe.to_string bad |> fun s -> String.prefix s 200 : string)]
+  | exception Yojson.Safe.Util.Type_error (msg, _) ->
+    Or_error.error_s [%message "unexpected JSON" msg]
 ;;
 
 let of_json ~key f json =

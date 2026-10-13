@@ -18,8 +18,8 @@ module Message = struct
       | None, _ | Some 443, Some "https" | Some 80, Some "http" -> host
       | Some port, _ -> sprintf "%s:%d" host port
     in
-    (* Take path and query from the request target cohttp actually writes, so the
-       signed values match the bytes on the wire even after Uri re-encodes them. *)
+    (* Take path and query from the request target cohttp actually writes, so the signed
+       values match the bytes on the wire even after Uri re-encodes them. *)
     let path, query =
       match String.lsplit2 (Uri.path_and_query uri) ~on:'?' with
       | Some (p, q) -> p, Some q

@@ -1,7 +1,7 @@
 (** Typed Griffin resources. Field names follow the JSON keys ([account-url] is
-    [account_url]). Enumerations are kept as strings because Griffin adds values
-    within a version; unknown fields are ignored and optional ones are dropped when
-    absent, so [t_of_yojson (yojson_of_t x) = x]. *)
+    [account_url]). Enumerations are kept as strings because Griffin adds values within a
+    version; unknown fields are ignored and optional ones are dropped when absent, so
+    [t_of_yojson (yojson_of_t x) = x]. *)
 
 open! Core
 
