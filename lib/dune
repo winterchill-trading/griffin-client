@@ -1,0 +1,17 @@
+(library
+ (name griffin_client)
+ (public_name griffin-client)
+ (libraries
+  core
+  core_unix
+  async
+  cohttp
+  cohttp-async
+  uri
+  yojson
+  ppx_yojson_conv_lib
+  cryptokit
+  zarith
+  base64)
+ (preprocess
+  (pps ppx_jane ppx_yojson_conv)))
