@@ -3,7 +3,7 @@
     {
       "webhook-destination-url": "https://example.com/webhook",
       "webhook-state": "active",
-      "webhook-description": "Hosted demo event reconciliation",
+      "webhook-description": "Example webhook",
       "created-at": "2026-09-14T12:45:53.943Z",
       "test-webhook-url": "/v0/webhooks/wh.fixture01xxxxxxxxxxxxx/actions/test",
       "deactivate-webhook-url": "/v0/webhooks/wh.fixture01xxxxxxxxxxxxx/actions/deactivate",

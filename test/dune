@@ -17,4 +17,4 @@
   (flags
    (:standard -source-tree-root .)))
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_yojson_conv)))
