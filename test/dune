@@ -1,6 +1,16 @@
 (library
  (name griffin_client_test)
- (libraries core async griffin-client yojson uri cryptokit base64)
+ (libraries
+  core
+  core_unix
+  async
+  griffin-client
+  yojson
+  uri
+  cryptokit
+  base64
+  cohttp
+  cohttp-async)
  (inline_tests
   (deps
    (source_tree fixtures))
