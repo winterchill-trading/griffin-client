@@ -7,3 +7,4 @@ module Http_signature = Http_signature
 module P521 = P521
 module Secret = Secret
 module Tls = Tls
+module Transport = Transport
