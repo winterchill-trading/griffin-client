@@ -18,12 +18,14 @@ module Message = struct
       | None, _ | Some 443, Some "https" | Some 80, Some "http" -> host
       | Some port, _ -> sprintf "%s:%d" host port
     in
-    let path =
-      match Uri.path uri with
-      | "" -> "/"
-      | p -> p
+    (* Take path and query from the request target cohttp actually writes, so the
+       signed values match the bytes on the wire even after Uri re-encodes them. *)
+    let path, query =
+      match String.lsplit2 (Uri.path_and_query uri) ~on:'?' with
+      | Some (p, q) -> p, Some q
+      | None -> Uri.path_and_query uri, None
     in
-    let query = Uri.verbatim_query uri in
+    let path = if String.is_empty path then "/" else path in
     { meth = String.uppercase meth; authority; path; query; headers; body }
   ;;
 
