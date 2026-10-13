@@ -185,3 +185,53 @@ let%expect_test "creditor and CoP request bodies" =
     |}];
   return ()
 ;;
+
+let%expect_test "fold and pipe follow links.next across pages" =
+  let pages =
+    [ ( "/v0/p1"
+      , {|{"items":[{"currency":"GBP","value":"1"}],"links":{"prev":null,"next":"/v0/p2?page[after]=x"}}|}
+      )
+    ; ( "/v0/p2"
+      , {|{"items":[{"currency":"GBP","value":"2"}],"links":{"prev":"/v0/p1","next":null}}|}
+      )
+    ]
+  in
+  let send ~meth:_ uri ~headers:_ ~body:_ =
+    let body = List.Assoc.find_exn pages (Uri.path uri) ~equal:String.equal in
+    return (Ok { Transport.Response.status = 200; headers = []; body })
+  in
+  let%bind c =
+    Client.connect
+      (Transport.create
+         ~send:(fun ~meth uri ~headers ~body ->
+           match Uri.path uri with
+           | "/v0/p1" | "/v0/p2" -> send ~meth uri ~headers ~body
+           | path ->
+             let file =
+               if String.equal path "/v0/index" then "index" else "organization"
+             in
+             return
+               (Ok
+                  { Transport.Response.status = 200
+                  ; headers = []
+                  ; body = In_channel.read_all ("fixtures/" ^ file ^ ".json")
+                  }))
+         (ok_exn (Config.create ~api_key:"g-test-x" ())))
+    >>| ok_exn
+  in
+  let%bind values =
+    Client.fold c "/v0/p1" ~key:"items" Money.t_of_yojson ~init:[] ~f:(fun acc m ->
+      m.value :: acc)
+  in
+  print_s [%sexp (values : string list Or_error.t)];
+  let%bind piped = Pipe.to_list (Client.pipe c "/v0/p1" ~key:"items" Money.t_of_yojson) in
+  print_s
+    [%sexp
+      (List.map piped ~f:(Or_error.map ~f:(fun (m : Money.t) -> m.value))
+       : string Or_error.t list)];
+  [%expect {|
+    (Ok (2 1))
+    ((Ok 1) (Ok 2))
+    |}];
+  return ()
+;;
