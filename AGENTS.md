@@ -55,8 +55,7 @@ then `dune build`. The switch must be `5.2.0+ox`.
 ## Dependencies and dependents
 
 No sibling dependencies in CI. `Ed25519` and `P521` are written over Zarith because no
-elliptic-curve library builds on the OxCaml switch. `../griffin-provider` (a
-product library) consumes this client.
+elliptic-curve library builds on the OxCaml switch.
 
 ## CI
 
